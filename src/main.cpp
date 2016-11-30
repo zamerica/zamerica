@@ -1407,6 +1407,7 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
 
 bool IsInitialBlockDownload()
 {
+    return false;
     const CChainParams& chainParams = Params();
     LOCK(cs_main);
     if (fImporting || fReindex)
@@ -1416,12 +1417,11 @@ bool IsInitialBlockDownload()
     static bool lockIBDState = false;
     if (lockIBDState)
         return false;
-    //bool state = (chainActive.Height() < pindexBestHeader->nHeight - 24 * 6 ||
-    //        pindexBestHeader->GetBlockTime() < GetTime() - chainParams.MaxTipAge());
-    //if (!state)
-    //    lockIBDState = true;
-    //return state;
-    return false;
+    bool state = (chainActive.Height() < pindexBestHeader->nHeight - 24 * 6 ||
+            pindexBestHeader->GetBlockTime() < GetTime() - chainParams.MaxTipAge());
+    if (!state)
+        lockIBDState = true;
+    return state;
 }
 
 bool fLargeWorkForkFound = false;

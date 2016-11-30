@@ -814,10 +814,7 @@ Value getblocksubsidy(const Array& params, bool fHelp)
 
     CAmount nReward = GetBlockSubsidy(nHeight, Params().GetConsensus());
     CAmount nFoundersReward = 0;
-    if ((nHeight > 0) && (nHeight <= Params().GetConsensus().GetLastFoundersRewardBlockHeight())) {
-        nFoundersReward = 0;
-        nReward -= nFoundersReward;
-    }
+
     Object result;
     result.push_back(Pair("miner", ValueFromAmount(nReward)));
     result.push_back(Pair("founders", ValueFromAmount(nFoundersReward)));
