@@ -34,6 +34,8 @@ Building
 Build ZAmerica along with most dependencies from source by running
 ./zcutil/build.sh. Currently only Linux is officially supported.
 
+You need to run ./zcutil/fetch-params.sh before first start.
+
 License
 -------
 
